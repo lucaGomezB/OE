@@ -1,0 +1,14 @@
+#Archivos de logs
+.git/logs/
+#Directorios de compilación
+/target/
+#Configuración específica del sistema
+.idea/
+.vscode/
+#Archivos binarios y de configuración
+*.class
+*.war
+*.ear
+#Archivos de sistemas operativos
+.DS_Store
+Thumbs.db
