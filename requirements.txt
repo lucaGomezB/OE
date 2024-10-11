@@ -1,1 +1,4 @@
-#Acá irán los paquetes que usemos.
+requests
+#Esto hace
+json
+#Esto hace
