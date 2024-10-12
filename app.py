@@ -62,7 +62,7 @@ def get_forecast(city, units='metric'):
             print(f"{date}: {temp}° - {description}")
         return data
     else:
-        print("Error en la consulta del pronóstico.")
+        print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
         return None
     
 
