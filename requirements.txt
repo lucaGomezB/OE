@@ -1,2 +1,8 @@
 requests
-#Esto hace
+#Esto hace posible conectarse con la API.
+dotenv
+#Permite leer el .env, guardamos la API key ahí.
+tkinter
+#Permite usar cajas de texto / campos de texto.
+pillow
+#Permite trabajar con imágenes.

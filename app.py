@@ -1,10 +1,20 @@
 import requests
-import json
+from dotenv import load_dotenv
+load_dotenv()
+import tkinter as tk
+from tkinter import messagebox
+from PIL import Image, ImageTk
 #Acá se importa lo que usaremos
-API_KEY = '14a29e215f0c53d81a5be327f21f4868'
+
+API_KEY = os.getenv('API_KEY')
 #Con esto accedemos a la API
 
 #Primero hay que definir las funciones que vamos a usar : 
+
+
+#-----------------------------------------------------------
+#                   FUNCIONES BÁSICAS
+#-----------------------------------------------------------
 
 def traductor(description):
     if description == "clear sky":
@@ -58,8 +68,7 @@ def get_forecast(city, units='metric'):
             date = forecast['dt_txt']
             temp = forecast['main']['temp']
             description = forecast['weather'][0]['description']
-            traductor(description)
-            print(f"{date}: {temp}° - {description}")
+            print(f"{date}: {temp}° - {traductor(description)}")
         return data
     else:
         print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
@@ -100,6 +109,80 @@ def menu():
         else:
             print("Opción no válida, intenta de nuevo.")
 
-if __name__ == "__main__":
-    menu()
-#Esto sería como el "main" de Java, o lo que se ejecutará.
+#-----------------------------------------------------------
+#                 FUNCIONES GRÁFICAS FRONT
+#-----------------------------------------------------------
+
+def show_weather():
+    city = city_entry.get()
+    if city:
+        result = get_current_weather(city, units_var.get())
+        result_label.config(text=result)
+    else:
+        messagebox.showwarning("Input Error", "Por favor ingresa el nombre de la ciudad")
+
+def show_forecast():
+    city = city_entry.get()
+    if city:
+        result = get_forecast(city, units_var.get())
+        result_label.config(text=result)
+    else:
+        messagebox.showwarning("Input Error", "Por favor ingresa el nombre de la ciudad")
+
+def change_units():
+    if units_var.get() == 'metric':
+        units_var.set('imperial')
+    else:
+        units_var.set('metric')
+    units_button.config(text=f"Unidades: {units_var.get()}")
+
+#--------------------------------------------------------------
+#                   FUNCIONES GRAFICAS BACK
+#--------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------
+
+# Crear ventana principal
+root = tk.Tk()
+root.title("Aplicación del Clima")
+
+# Cargar la imagen de fondo
+try:
+  background_image = Image.open("app/8.jpg") 
+  background_photo = ImageTk.PhotoImage(background_image)
+except FileNotFoundError:
+  background_color = "#37bfbb"  # Replace with your desired background color
+
+# Crear un canvas para colocar la imagen de fondo
+canvas = tk.Canvas(root, width=background_image.width, height=background_image.height)
+canvas.grid(row=0, column=0, columnspan=2)  # Expandir en dos columnas
+
+# Colocar la imagen en el canvas
+canvas.create_image(0, 0, image=background_photo, anchor="nw")
+
+# Etiqueta y campo de texto para ingresar ciudad
+city_label = tk.Label(root, text="Ciudad:", bg="white")
+city_label_window = canvas.create_window(10, 10, anchor="nw", window=city_label)
+
+city_entry = tk.Entry(root)
+city_entry_window = canvas.create_window(80, 10, anchor="nw", window=city_entry)
+
+# Botón para consultar el clima actual
+current_weather_button = tk.Button(root, text="Clima Actual", command=show_weather)
+current_weather_button_window = canvas.create_window(10, 50, anchor="nw", window=current_weather_button)
+
+# Botón para consultar el pronóstico
+forecast_button = tk.Button(root, text="Pronóstico a 5 días", command=show_forecast)
+forecast_button_window = canvas.create_window(10, 90, anchor="nw", window=forecast_button)
+
+# Botón para cambiar las unidades (Celsius/Fahrenheit)
+units_var = tk.StringVar(value='metric')
+units_button = tk.Button(root, text=f"Unidades: {units_var.get()}", command=change_units)
+units_button_window = canvas.create_window(10, 130, anchor="nw", window=units_button)
+
+# Etiqueta para mostrar los resultados
+result_label = tk.Label(root, text="", justify="left", bg="white")
+result_label_window = canvas.create_window(10, 170, anchor="nw", window=result_label)
+
+# Ejecutar el loop principal de Tkinter
+root.mainloop()
