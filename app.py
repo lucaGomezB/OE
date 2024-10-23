@@ -11,3 +11,6 @@ import moduloFuncionesGraficasBack
 
 # Ejecutar el loop principal de Tkinter
 moduloFuncionesGraficasBack.root.mainloop()
+
+#Primero se importa moduloFuncionesGraficasBack, que tiene el root.mainloop() : 
+import moduloFuncionesGraficasBack
