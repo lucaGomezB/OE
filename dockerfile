@@ -1,4 +1,4 @@
-FROM <python:3.11>
+FROM python:3.11
 #Esto indica la distro / especializacion que va a usar docker.
 
 COPY . /app
