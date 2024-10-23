@@ -10,7 +10,9 @@ API_KEY = os.getenv('API_KEY')
 import moduloFuncionesGraficasBack
 
 # Ejecutar el loop principal de Tkinter
-moduloFuncionesGraficasBack.root.mainloop()
 
-#Primero se importa moduloFuncionesGraficasBack, que tiene el root.mainloop() : 
-import moduloFuncionesGraficasBack
+display_value = os.environ.get('DISPLAY')
+if (display_value is None): 
+    pass
+else:
+    moduloFuncionesGraficasBack.root.mainloop()
