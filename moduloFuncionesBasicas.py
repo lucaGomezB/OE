@@ -64,3 +64,37 @@ def get_forecast(city, units='metric'):
     else:
         print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
         return None
+    
+def menu():
+    #Esta función se usa como menú interactivo. 
+    historial = []
+    while True:
+        print("\nMenú:")
+        print("1. Consultar el clima actual")
+        print("2. Ver pronóstico para los próximos 5 días")
+        print("3. Cambiar unidades (Celsius/Fahrenheit)")
+        print("4. Ver historial de consultas")
+        print("5. Salir")
+        opcion = input("Selecciona una opción: ")
+        if opcion == '1':
+            ciudad = input("Ingresa el nombre de la ciudad: ")
+            get_current_weather(ciudad)
+            historial.append(ciudad)
+        elif opcion == '2':
+            ciudad = input("Ingresa el nombre de la ciudad: ")
+            get_forecast(ciudad)
+            historial.append(ciudad)
+        elif opcion == '3':
+            unidad = input("Selecciona las unidades ( metric (Cº) | imperial (Fº)): ")
+            if unidad in ['metric', 'imperial']:
+                print(f"Unidades cambiadas a {unidad}.")
+            else:
+                print("Opción inválida.")
+        elif opcion == '4':
+            print("Historial de consultas:")
+            for ciudad in historial:
+                print(ciudad)
+        elif opcion == '5':
+            break
+        else:
+            print("Opción no válida, intenta de nuevo.")
