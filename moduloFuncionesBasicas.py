@@ -15,7 +15,7 @@ def traductor(description):
     elif description == "broken clouds":
         description = "Nubes despejadas"
     elif description == "scattered clouds":
-        description = "Escazas Nubes"
+        description = "Escasas Nubes"
     elif description == "overcast clouds":
         description = "Nublado"
     elif description == "light rain":
