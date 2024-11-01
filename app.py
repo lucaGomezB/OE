@@ -14,6 +14,6 @@ import moduloFuncionesBasicas
 
 display_value = os.environ.get('DISPLAY')
 if (display_value is None): 
-    moduloFuncionesBasicas.menu()
+    moduloFuncionesBasicas.menu(0)
 else:
     moduloFuncionesGraficasBack.root.mainloop()
