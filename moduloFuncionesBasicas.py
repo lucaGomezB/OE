@@ -67,6 +67,7 @@ def get_current_weather(city, units='metric'):
         print(f"Humedad: {main['humidity']}%")
         print(f"Velocidad del viento: {wind['speed']} {wind_speed_unit}")
         #Acá se muestran los datos
+        input("Presione cualquier tecla para continuar : ")
         print("")
         return data
     else:
@@ -113,20 +114,17 @@ def get_forecast(city, units='metric'):
             min_feels_like = min(feels_likes)
             max_feels_like = max(feels_likes)
             avg_humidity = sum(humidities) / len(humidities)
-            wind = data['wind']
             most_common_desc = max(set(descriptions), key=descriptions.count)
             readable_date = forecasts[0]['date'].strftime('%d %B')
             icono_clima = iconos_clima.get(most_common_desc, "")
-            if units == 'imperial':
-                wind_speed_unit = "millas/s"
-            else:
-                wind_speed_unit = "metros/s"
             print(f"{readable_date.capitalize()} {icono_clima}:") 
-            print(f"  Temperatura mínima: {min_temp}°C (Sensación: {min_feels_like}°C)")
-            print(f"  Temperatura máxima: {max_temp}°C (Sensación: {max_feels_like}°C)")
+            print(f"  Temperatura mínima: {min_temp}°  (Sensación: {min_feels_like}°)")
+            print(f"  Temperatura máxima: {max_temp}° (Sensación: {max_feels_like}°)")
             print(f"  Humedad promedio: {avg_humidity:.1f}%")
             print(f"  Clima: {traductor(most_common_desc)}\n")
-            print(f"Velocidad del viento: {wind['speed']} {wind_speed_unit}")
+            ("Presione cualquier tecla para continuar")
+            input("Presione cualquier tecla para continuar : ")
+            print("")
         return data
     else:
         print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")

@@ -6,7 +6,5 @@ tk
 #Permite usar cajas de texto / campos de texto.
 pillow
 #Permite trabajar con imágenes.
-collections
-#Permite usar defaultdict
 datetime
 #Permite usar datetime
