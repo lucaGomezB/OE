@@ -5,10 +5,4 @@ python-dotenv
 tk
 #Permite usar cajas de texto / campos de texto.
 pillow
-<<<<<<< HEAD
 #Permite trabajar con imágenes.
-datetime
-#Permite usar datetime
-=======
-#Permite trabajar con imágenes.
->>>>>>> 53b450d20cc25d81271a7c93e1b7764c89bfdd4c
