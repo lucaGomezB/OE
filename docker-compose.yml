@@ -1,0 +1,7 @@
+version: "3.9"
+services:
+  appclima:
+    build: .
+    image: python
+    environment: 
+      - API_KEY=14a29e215f0c53d81a5be327f21f4868
