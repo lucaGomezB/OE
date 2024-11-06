@@ -1,2 +1,2 @@
-.env
-#Ha sido ignorado .env
+_.env
+__pycache__/
