@@ -1,9 +1,14 @@
 import moduloFuncionesBasicas
-import moduloFuncionesGraficasBack
 from tkinter import messagebox
 #-----------------------------------------------------------
 #                 FUNCIONES GRÁFICAS FRONT
 #-----------------------------------------------------------
+
+# En moduloFuncionesGraficasFront.py
+def alguna_funcion():
+    import moduloFuncionesGraficasBack
+    # Aquí usas las funciones de moduloFuncionesGraficasBack
+
 
 def show_weather():
     city = moduloFuncionesGraficasBack.city_entry.get()
