@@ -175,17 +175,21 @@ def get_forecast(city, units='metric'):
     
 def menu(contador):
     #Esta función se usa como menú interactivo. 
-    contador = contador + 1
     try: 
         with open("Historial_Consultas", "r") as file:
             historialBruto = file.readlines()
             historial = [line.strip() for line in historialBruto]
     except FileNotFoundError:
         historial = []
-    if contador == 1:
-        unidad = 'metric'
-        #Esto se corre solo cuando se inicia el menú por primera vez.
     while True:
+        while True:
+            try:
+                with open('Unidad_Local', 'r') as f:
+                    unidad = f.read()
+                    break
+            except FileNotFoundError:
+                with open('Unidad_Local', 'w') as f:
+                    f.write('metric')
         imprimir_recuadro("Menú", [
             "1. Consultar el clima actual",
             "2. Ver pronóstico para los próximos 5 días",
@@ -199,12 +203,12 @@ def menu(contador):
             for ciudad in historial:
                 print(ciudad)
             ciudad = input("Ingresa el nombre de la ciudad: ")
-            get_current_weather(ciudad, unidad)
+            datos = get_current_weather(ciudad, unidad)
             search_string = ciudad
             if search_string in historial:
                 pass
             else:
-                if get_current_weather(ciudad, unidad) == None:
+                if datos == None:
                     print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
                     print("")
                     pass
@@ -214,23 +218,25 @@ def menu(contador):
             for ciudad in historial:
                 print(ciudad)
             ciudad = input("Ingresa el nombre de la ciudad: ")
-            get_forecast(ciudad, unidad)
+            datos = get_forecast(ciudad, unidad)
             search_string = ciudad
             if search_string in historial:
                 pass
             else:
-                if get_forecast(ciudad, unidad) == None:
+                if datos == None:
                     print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
                     print("")
                     pass
                 historial.append(ciudad)
         elif opcion == '3':
             while True: 
-                unidad = input("Selecciona las unidades ( metric (Cº) | imperial (Fº)): ")
                 print("Porfavor tenga en mente que cambiará también la velocidad del viento de metros/s a millas/s acordemente.")
+                unidad = input("Selecciona las unidades ( metric (Cº) | imperial (Fº)): ")
                 if unidad in ['metric', 'imperial','Metric','Imperial','METRIC','IMPERIAL']:
                     print(f"Unidades cambiadas a {unidad}.")
                     print("")
+                    with open('Unidad_Local', 'w') as f:
+                        f.write(unidad)
                     break
                 else:
                     print("Opción inválida.")
@@ -241,13 +247,12 @@ def menu(contador):
                 print(ciudad)
         elif opcion == '5':
             try:
-                with open("Historial_Consultas", "r") as file:
-                    for ciudad in historial :
-                        with open('Historial_Consultas', 'a') as f:
-                            if ciudad in historial :
-                                pass
-                            else: 
-                                f.write(" "+ciudad+" ")
+                for ciudad in historial :
+                    with open('Historial_Consultas', 'a') as f:
+                        if ciudad in [line.strip() for line in historialBruto] :
+                            pass
+                        else: 
+                            f.write(" "+ciudad+" ")
             except FileNotFoundError:
                 for ciudad in historial :
                     with open('Historial_Consultas', 'a') as f:

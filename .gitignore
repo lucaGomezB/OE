@@ -1,3 +1,6 @@
 .env
 #Ha sido ignorado .env
 Historial_Consultas
+#Ha sido ignorado el Historial de consultas generado po moduloFuncionesBasicas.
+Unidad_Local
+#ha sido ignorada la unidad que usa el usuario para mostrar la información.
