@@ -6,3 +6,5 @@ tk
 #Permite usar cajas de texto / campos de texto.
 pillow
 #Permite trabajar con imágenes.
+numpy
+#Permite crear, abrir y modificar archivos.

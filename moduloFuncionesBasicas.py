@@ -86,8 +86,6 @@ def get_current_weather(city, units='metric'):
         continuar()
         return data
     else:
-        print("Error en la consulta, por favor verifica el nombre de la ciudad.")
-        print("")
         return None
     
 locale.setlocale(locale.LC_TIME, 'es_ES')
@@ -173,8 +171,6 @@ def get_forecast(city, units='metric'):
             continuar()
         return data
     else:
-        print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
-        print("")
         return None
     
 def menu(contador):
@@ -208,6 +204,10 @@ def menu(contador):
             if search_string in historial:
                 pass
             else:
+                if get_current_weather(ciudad, unidad) == None:
+                    print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
+                    print("")
+                    pass
                 historial.append(ciudad)
         elif opcion == '2':
             print("Ciudades consultadas : ")
@@ -219,6 +219,10 @@ def menu(contador):
             if search_string in historial:
                 pass
             else:
+                if get_forecast(ciudad, unidad) == None:
+                    print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
+                    print("")
+                    pass
                 historial.append(ciudad)
         elif opcion == '3':
             while True: 
@@ -238,10 +242,9 @@ def menu(contador):
         elif opcion == '5':
             try:
                 with open("Historial_Consultas", "r") as file:
-                    historialBruto = file.readlines()
                     for ciudad in historial :
                         with open('Historial_Consultas', 'a') as f:
-                            if ciudad in historialBruto :
+                            if ciudad in historial :
                                 pass
                             else: 
                                 f.write(" "+ciudad+" ")
