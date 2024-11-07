@@ -3,8 +3,8 @@ import requests
 from dotenv import load_dotenv
 import os
 from collections import defaultdict
-from datetime import datetime
 import locale
+import numpy as np
 load_dotenv()
 API_KEY = os.getenv('API_KEY')
 #
@@ -32,21 +32,6 @@ def imprimir_recuadro(titulo, contenido):
         print(f"| {linea.ljust(ancho - 2)} |")
     print("+" + "-" * ancho + "+\n")
 
-<<<<<<< Updated upstream
-def traductor(description):
-    traducciones = {
-        "clear sky": "Cielo despejado",
-        "few clouds": "Pocas nubes",
-        "scattered clouds": "Nubes dispersas",
-        "overcast clouds": "Nublado",
-        "light rain": "Lluvia ligera",
-        "rain": "Lluvia",
-        "thunderstorm": "Tormenta",
-        "snow": "Nieve",
-        "mist": "Niebla"
-    }
-    return traducciones.get(description, description)
-=======
 class HistorialClima:
     def __init__(self):
         self.historial = []
@@ -64,7 +49,6 @@ class HistorialClima:
         if not self.historial:
             print("No hay consultas en el historial")
             return
-        
         print("\nHistorial de consultas de climas")
         for consulta in self.historial:
             print(f"Ciudad: {consulta['ciudad']}")
@@ -72,9 +56,9 @@ class HistorialClima:
             print(f"Temperatura: {consulta['temperatura']}°")
             print(f"Fecha y hora: {consulta['fecha_hora']}")
             print("-" * 30)
+        print("")
 
-histrial = HistorialClima    
->>>>>>> Stashed changes
+historial = HistorialClima    
 
 def get_current_weather(city, units='metric'):
     print()
@@ -99,8 +83,7 @@ def get_current_weather(city, units='metric'):
         print(f"Humedad: {main['humidity']}%")
         print(f"Velocidad del viento: {wind['speed']} {wind_speed_unit}")
         #Acá se muestran los datos
-        input("Presione cualquier tecla para continuar : ")
-        print("")
+        continuar()
         return data
     else:
         print("Error en la consulta, por favor verifica el nombre de la ciudad.")
@@ -112,27 +95,33 @@ locale.setlocale(locale.LC_TIME, 'es_ES')
 iconos_clima = {
     "clear sky": "☀️",
     "few clouds": "🌤️",
+    "broken clouds": "🌤️",
     "scattered clouds": "⛅",
     "overcast clouds": "☁️",
     "light rain": "🌧️",
     "rain": "🌧️",
     "thunderstorm": "⛈️",
     "snow": "❄️",
-    "mist": "🌫️"
+    "mist": "🌫️",
+    "light intensity drizzle": "🌧️",
+    "light snow": "❄️" 
 }
 
 def traductor(descripcion):
-    # Aquí iría tu lógica para traducir las descripciones a español
+    # Aquí iría la lógica para traducir las descripciones a español
     traducciones = {
-        "clear sky": "cielo despejado",
-        "few clouds": "pocas nubes",
-        "scattered clouds": "nubes dispersas",
-        "overcast clouds": "nubes rotas",
-        "light rain": "lluvia ligera",
-        "rain": "lluvia",
-        "thunderstorm": "tormenta",
-        "snow": "nieve",
-        "mist": "niebla"
+        "clear sky": "Cielo despejado",
+        "few clouds": "Pocas nubes",
+        "scattered clouds": "Nubes dispersas",
+        "overcast clouds": "Nublado",
+        "light rain": "LLuvia ligera",
+        "rain": "LLuvia",
+        "thunderstorm": "Tormenta",
+        "snow": "Nieve",
+        "mist": "Niebla",
+        "broken clouds": "Nubes desparramadas",
+        "light intensity drizzle": "LLovizna de baja intensidad",
+        "light snow": "Escasa nieve"
     }
     return traducciones.get(descripcion, descripcion)
 
@@ -163,49 +152,25 @@ def get_forecast(city, units='metric'):
                 'date': date
             })
         print(f"Pronóstico para los próximos 5 días en {city}:")
-<<<<<<< Updated upstream
-        print('')
-=======
->>>>>>> Stashed changes
         for day, forecasts in forecast_by_day.items():
             temps = [f['temp'] for f in forecasts]
             feels_likes = [f['feels_like'] for f in forecasts]
             humidities = [f['humidity'] for f in forecasts]
             descriptions = [f['description'] for f in forecasts]
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
             min_temp = min(temps)
             max_temp = max(temps)
             min_feels_like = min(feels_likes)
             max_feels_like = max(feels_likes)
             avg_humidity = sum(humidities) / len(humidities)
-<<<<<<< Updated upstream
             most_common_desc = max(set(descriptions), key=descriptions.count)
             readable_date = forecasts[0]['date'].strftime('%d %B')
             icono_clima = iconos_clima.get(most_common_desc, "")
             print(f"{readable_date.capitalize()} {icono_clima}:") 
-            print(f"  Temperatura mínima: {min_temp}°  (Sensación: {min_feels_like}°)")
-            print(f"  Temperatura máxima: {max_temp}° (Sensación: {max_feels_like}°)")
-            print(f"  Humedad promedio: {avg_humidity:.1f}%")
-            print(f"  Clima: {traductor(most_common_desc)}\n")
-            ("Presione cualquier tecla para continuar")
-            input("Presione cualquier tecla para continuar : ")
-            print("")
-=======
-
-            most_common_desc = max(set(descriptions), key=descriptions.count)
-            readable_date = forecasts[0]['date'].strftime('%d %B')
-            icono_clima = iconos_clima.get(most_common_desc, "")
-
-            print(f"{readable_date.capitalize()} {icono_clima}:") 
-            print(f"  Temperatura mínima: {min_temp}°C (Sensación: {min_feels_like}°C)")
-            print(f"  Temperatura máxima: {max_temp}°C (Sensación: {max_feels_like}°C)")
+            print(f"  Temperatura mínima: {min_temp}° (Sensación: {min_feels_like}°)")
+            print(f"  Temperatura máxima: {max_temp}° (Sensación: {max_feels_like}°)")
             print(f"  Humedad promedio: {avg_humidity:.1f}%")
-            print(f"  Clima: {traductor(most_common_desc)}\n")
-
->>>>>>> Stashed changes
+            print(f"  Clima: {traductor(most_common_desc)}")
+            continuar()
         return data
     else:
         print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
@@ -214,10 +179,16 @@ def get_forecast(city, units='metric'):
     
 def menu(contador):
     #Esta función se usa como menú interactivo. 
-    historial = []
-    contador = contador + 1 
+    contador = contador + 1
+    try: 
+        with open("Historial_Consultas", "r") as file:
+            historialBruto = file.readlines()
+            historial = [line.strip() for line in historialBruto]
+    except FileNotFoundError:
+        historial = []
     if contador == 1:
         unidad = 'metric'
+        #Esto se corre solo cuando se inicia el menú por primera vez.
     while True:
         imprimir_recuadro("Menú", [
             "1. Consultar el clima actual",
@@ -228,16 +199,31 @@ def menu(contador):
         ])
         opcion = input("Selecciona una opción: ")
         if opcion == '1':
+            print("Ciudades consultadas : ")
+            for ciudad in historial:
+                print(ciudad)
             ciudad = input("Ingresa el nombre de la ciudad: ")
             get_current_weather(ciudad, unidad)
-            historial.append(ciudad)
+            search_string = ciudad
+            if search_string in historial:
+                pass
+            else:
+                historial.append(ciudad)
         elif opcion == '2':
+            print("Ciudades consultadas : ")
+            for ciudad in historial:
+                print(ciudad)
             ciudad = input("Ingresa el nombre de la ciudad: ")
             get_forecast(ciudad, unidad)
-            historial.append(ciudad)
+            search_string = ciudad
+            if search_string in historial:
+                pass
+            else:
+                historial.append(ciudad)
         elif opcion == '3':
             while True: 
                 unidad = input("Selecciona las unidades ( metric (Cº) | imperial (Fº)): ")
+                print("Porfavor tenga en mente que cambiará también la velocidad del viento de metros/s a millas/s acordemente.")
                 if unidad in ['metric', 'imperial','Metric','Imperial','METRIC','IMPERIAL']:
                     print(f"Unidades cambiadas a {unidad}.")
                     print("")
@@ -250,7 +236,25 @@ def menu(contador):
             for ciudad in historial:
                 print(ciudad)
         elif opcion == '5':
+            try:
+                with open("Historial_Consultas", "r") as file:
+                    historialBruto = file.readlines()
+                    for ciudad in historial :
+                        with open('Historial_Consultas', 'a') as f:
+                            if ciudad in historialBruto :
+                                pass
+                            else: 
+                                f.write(" "+ciudad+" ")
+            except FileNotFoundError:
+                for ciudad in historial :
+                    with open('Historial_Consultas', 'a') as f:
+                        f.write(" "+ciudad+" ")
             break
         else:
             print("Opción no válida, intenta de nuevo.")
             print('')
+
+def continuar():
+    print('')
+    input("Presione cualquier tecla para continuar.")
+    print('')

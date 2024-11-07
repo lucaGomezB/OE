@@ -1,2 +1,3 @@
 .env
-__pycache__/
+#Ha sido ignorado .env
+Historial_Consultas

@@ -25,13 +25,6 @@ else:
   # Crear un canvas para colocar la imagen de fondo
   canvas = tk.Canvas(root, width=background_image.width, height=background_image.height)
   canvas.grid(row=0, column=0, columnspan=2)  # Expandir en dos columnas
-=======
-# Cargar la imagen de fondo
-try:
-  background_image = Image.open("C:\Users\elian\OneDrive\Escritorio\porogramacion\O.E\OE\OE\OE\OE\8.jpg") 
-  background_photo = ImageTk.PhotoImage(background_image)
-except FileNotFoundError:
-  background_color = "#37bfbb"  # Replace with your desired background color
 
   # Colocar la imagen en el canvas
   canvas.create_image(0, 0, image=background_photo, anchor="nw")

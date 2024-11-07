@@ -10,7 +10,7 @@ API_KEY = os.getenv('API_KEY')
 import moduloFuncionesGraficasBack
 #Segundo, se importa moduloFuncionesBasicas, que deja correr el programa incluso cuando no se tiene cabeza.
 import moduloFuncionesBasicas
-# Ejecutar el loop principal de Tkinter
+#Tercero, si es posible mostrar por pantalla una ventana, se ejecuta el programa correspondiente, sino, por consola.
 display_value = os.environ.get('DISPLAY')
 if (display_value is None): 
     moduloFuncionesBasicas.menu(0)
