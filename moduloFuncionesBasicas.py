@@ -88,7 +88,7 @@ def get_current_weather(city, units='metric'):
     else:
         return None
     
-locale.setlocale(locale.LC_TIME, 'es_ES')
+locale.setlocale(locale.LC_TIME)
 
 iconos_clima = {
     "clear sky": "☀️",
@@ -173,7 +173,7 @@ def get_forecast(city, units='metric'):
     else:
         return None
     
-def menu(contador):
+def menu():
     #Esta función se usa como menú interactivo. 
     try: 
         with open("Historial_Consultas", "r") as file:
@@ -259,7 +259,7 @@ def menu(contador):
                         f.write(" "+ciudad+" ")
             break
         else:
-            print("Opción no válida, intenta de nuevo.")
+            print("Opción inválida, intenta de nuevo.")
             print('')
 
 def continuar():
