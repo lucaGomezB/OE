@@ -2,11 +2,5 @@ requests
 #Esto hace posible conectarse con la API.
 python-dotenv
 #Permite leer el .env, guardamos la API key ahí.
-tk
-#Permite usar cajas de texto / campos de texto.
-pillow
-#Permite trabajar con imágenes.
 numpy
 #Permite crear, abrir y modificar archivos.
-locale
-#Permite usar el programa en cualquier lado.
