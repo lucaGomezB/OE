@@ -12,6 +12,3 @@ RUN pip install -r requirements.txt
 
 CMD ["python","app.py"]
 #Esto especifica lo que se va a correr siempre que empiece el container.
-
-ENV LC_ALL C
-#Esto le dice a Docker que solo use el formato estándar.
