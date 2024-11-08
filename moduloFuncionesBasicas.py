@@ -174,15 +174,8 @@ def get_forecast(city, units='metric'):
         return None
     
 def menu():
-    #Esta función se usa como menú interactivo. 
-    try: 
-        with open("Historial_Consultas", "r") as file:
-            historialBruto = file.readlines()
-            historial = [line.strip() for line in historialBruto]
-    except FileNotFoundError:
-        historial = []
+    #Esta función se usa como menú interactivo.
     while True:
-        while True:
             try:
                 with open('Unidad_Local', 'r') as f:
                     unidad = f.read()
@@ -190,6 +183,17 @@ def menu():
             except FileNotFoundError:
                 with open('Unidad_Local', 'w') as f:
                     f.write('metric')
+    while True:
+            try:
+                with open('Historial_Consultas', 'r') as f:
+                    historialBruto = f.readlines()
+                    historial = [line.strip() for line in historialBruto]
+                    break
+            except FileNotFoundError:
+                with open('Historial_Consultas', 'w') as f:
+                    f.write('')
+    #Se verifica primero que existan los archivos que contienen al historial y la unidad (por defecto metric)
+    while True:
         imprimir_recuadro("Menú", [
             "1. Consultar el clima actual",
             "2. Ver pronóstico para los próximos 5 días",
@@ -207,11 +211,11 @@ def menu():
             search_string = ciudad
             if search_string in historial:
                 pass
-            else:
-                if datos == None:
-                    print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
-                    print("")
-                    pass
+            elif datos == None:
+                print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
+                print("")
+                pass
+            elif datos != None: 
                 historial.append(ciudad)
         elif opcion == '2':
             print("Ciudades consultadas : ")
@@ -222,11 +226,11 @@ def menu():
             search_string = ciudad
             if search_string in historial:
                 pass
-            else:
-                if datos == None:
-                    print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
-                    print("")
-                    pass
+            elif datos == None:
+                print("Error en la consulta del pronóstico. Porfavor verifique la ciudad ingresada.")
+                print("")
+                pass
+            elif datos != None: 
                 historial.append(ciudad)
         elif opcion == '3':
             while True: 
@@ -246,17 +250,9 @@ def menu():
             for ciudad in historial:
                 print(ciudad)
         elif opcion == '5':
-            try:
-                for ciudad in historial :
-                    with open('Historial_Consultas', 'a') as f:
-                        if ciudad in [line.strip() for line in historialBruto] :
-                            pass
-                        else: 
-                            f.write(" "+ciudad+" ")
-            except FileNotFoundError:
-                for ciudad in historial :
-                    with open('Historial_Consultas', 'a') as f:
-                        f.write(" "+ciudad+" ")
+            for ciudad in historial :
+                with open('Historial_Consultas', 'a') as f:
+                    f.write(" "+ciudad+" ")
             break
         else:
             print("Opción inválida, intenta de nuevo.")
