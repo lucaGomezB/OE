@@ -4,5 +4,3 @@ python-dotenv
 #Permite leer el .env, guardamos la API key ahí.
 numpy
 #Permite crear, abrir y modificar archivos.
-locale
-#Permite usar el programa en cualquier lado.
