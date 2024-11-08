@@ -6,13 +6,7 @@ load_dotenv()
 API_KEY = os.getenv('API_KEY')
 #Con esto accedemos a la API
 
-#Primero se importa moduloFuncionesGraficasBack, que tiene el root.mainloop() : 
-import moduloFuncionesGraficasBack
-#Segundo, se importa moduloFuncionesBasicas, que deja correr el programa incluso cuando no se tiene cabeza.
+#Primero, se importa moduloFuncionesBasicas, que deja correr el programa incluso cuando no se tiene cabeza.
 import moduloFuncionesBasicas
-#Tercero, si es posible mostrar por pantalla una ventana, se ejecuta el programa correspondiente, sino, por consola.
-display_value = os.environ.get('DISPLAY')
-if (display_value is None): 
-    moduloFuncionesBasicas.menu(0)
-else:
-    moduloFuncionesGraficasBack.root.mainloop()
+#Luego, se ejecuta el programa por consola. Decidimos dejar de lado el soporte para gráficos avanzados.
+moduloFuncionesBasicas.menu()
